@@ -3,28 +3,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-test-trace
+  labels:
+    name: my-test-trace
   annotations:
     "sidecar.jaegertracing.io/inject": "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello
+      app: my-test-trace
   template:
     metadata:
       labels:
-        app: hello
+        app: my-test-trace
     spec:
       containers:
-      - name: hello-app
-        # Replace $GCLOUD_PROJECT with your project ID
-        image: zub1984/my-test-trace:latest
-        # This app listens on port 8080 for web traffic by default.
-        ports:
-        - containerPort: 8080
-        env:
-          - name: PORT
-            value: "8080"
+        - name: my-test-trace
+          image: zub1984/my-test-trace:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: PORT
+              value: "8080"
 ---
 apiVersion: v1
 kind: Service
@@ -35,5 +37,5 @@ spec:
   selector:
     app: hello
   ports:
-  - port: 80
-    targetPort: 8080
+    - port: 80
+      targetPort: 8080
