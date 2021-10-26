@@ -61,6 +61,9 @@ def alpha():
             time.sleep(10)
     return 'This is the Alpha Endpoint!'
 
+def do_heavy_work():
+    return True
+ 
  
 @app.route('/beta')
 def beta():
