@@ -20,7 +20,7 @@
 ![][image3]
 
 ## Describe SLO/SLI
-*TODO:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
+* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
 
 A Service-Level Objective (SLO) is a measurable goal set by the SRE (Site Reliability Engineering) team to ensure a standard level of performance during a specified period of time. A Service-Level Indicator (SLI) is a specific metric used to measure the performance of a service. Sometimes the term SLI is used to refer to the general metric—such as uptime but really what we need in the end is an actual measurement.
 
@@ -31,7 +31,7 @@ For example, suppose that team has following SLO:
 In this case, SLI would be the actual measurement of the uptime. Perhaps during that year, you actually achieved 99.5% uptime or 97.3% uptime. These measurements are your SLIs—they indicate the level of performance your service actually exhibited, and show you whether you achieved your SLO (in this case, the SLIs show that performance fell short of the objective).
 
 ## Creating SLI metrics.
-*TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
+* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
 
 Without a measurement, it’s impossible to know what you’re doing well and what needs improvement. When you introduce customer service metrics into the mix, you suddenly have concrete, objective data to inform your decisions. What could be better? Business owners who don’t measure customer service are taking a stab in the dark when they try to improve: They don’t know what’s wrong, so they’re just guessing.
 
