@@ -1,4 +1,4 @@
-name: "Starting with Dashboards"
+name: "backend docker build"
 
 # Controls when the action will run. 
 on:
@@ -36,8 +36,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./course-files/tracing-extra/app
-          file: ./course-files/tracing-extra/app/Dockerfile
+          context: ./Project_Starter_Files-Building_a_Metrics_Dashboard/reference-app/backend
+          file: ./Project_Starter_Files-Building_a_Metrics_Dashboard/reference-app/backend/Dockerfile
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: zub1984/my-test-trace:latest
+          tags: zub1984/backend:latest
