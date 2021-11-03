@@ -37,11 +37,11 @@ Without a measurement, it’s impossible to know what you’re doing well and wh
 
 Example : Suppose you are monitoring the performance of services at a fast food restaurant. Here are some reasonable examples that you might be interested
 
-Number of orders completed/hour.
-Number of 5-star ratings/day.
-Number of cancelled orders/week.
-Piza sold/month.
-% of late orders (fulfillment time > 10 minutes)/hour.
+* Number of orders completed/hour.
+* Number of 5-star ratings/day.
+* Number of cancelled orders/week.
+* Piza sold/month.
+* % of late orders (fulfillment time > 10 minutes)/hour.
 
 ## Create a Dashboard to measure our SLIs
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
