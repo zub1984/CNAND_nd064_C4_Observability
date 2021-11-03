@@ -35,7 +35,7 @@ In this case, SLI would be the actual measurement of the uptime. Perhaps during 
 
 Without a measurement, it’s impossible to know what you’re doing well and what needs improvement. When you introduce customer service metrics into the mix, you suddenly have concrete, objective data to inform your decisions. What could be better? Business owners who don’t measure customer service are taking a stab in the dark when they try to improve: They don’t know what’s wrong, so they’re just guessing.
 
-Example : Suppose you are monitoring the performance of services at a fast food restaurant. Here are some reasonable examples that you might be interested
+Example : Suppose you are monitoring the performance of services at a fast food restaurant. Here are some reasonable examples that might be interested
 
 * Number of orders completed/hour.
 * Number of 5-star ratings/day.
