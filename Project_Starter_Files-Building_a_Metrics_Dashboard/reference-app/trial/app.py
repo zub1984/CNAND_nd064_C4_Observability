@@ -50,7 +50,7 @@ def init_tracer(service):
     # this call also sets opentracing.tracer
     return config.initialize_tracer()
 
-tracer = init_tracer('first-service')
+tracer = init_tracer('trial-service')
 
 @app.route('/')
 def homepage():
