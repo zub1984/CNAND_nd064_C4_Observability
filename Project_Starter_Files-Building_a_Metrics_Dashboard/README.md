@@ -22,7 +22,9 @@
 ## Describe SLO/SLI
 * Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
 
-A Service-Level Objective (SLO) is a measurable goal set by the SRE (Site Reliability Engineering) team to ensure a standard level of performance during a specified period of time. A Service-Level Indicator (SLI) is a specific metric used to measure the performance of a service. Sometimes the term SLI is used to refer to the general metric—such as uptime but really what we need in the end is an actual measurement.
+- SLO : A Service-Level Objective (SLO) is a measurable goal set by the SRE (Site Reliability Engineering) team to ensure a standard level of performance during a specified period of time. 
+
+- SLI : A Service-Level Indicator (SLI) is a specific metric used to measure the performance of a service. Sometimes the term SLI is used to refer to the general metric—such as uptime but really what we need in the end is an actual measurement.
 
 For example, suppose that team has following SLO:
 
@@ -71,7 +73,11 @@ Description:
 
 
 ## Creating SLIs and SLOs
-*TODO:* We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name three SLIs that you would use to measure the success of this SLO.
+* We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name three SLIs that you would use to measure the success of this SLO.
+
+- [Latency]: % of late response (Response time > 5ms)/hours
+- [Failure rate]: Number of failure code (40X and 50X)/day
+- [Uptime]: Uptime nedd to be approximate 99 percent within a month and response time should be around 500 milliseconds.
 
 ## Building KPIs for our plan
 *TODO*: Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
