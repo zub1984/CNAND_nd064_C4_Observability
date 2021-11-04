@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: trial-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: trial
@@ -26,8 +26,7 @@ spec:
   selector:
     app: trial
   ports:
-    - name: trial
-      port: 8083
+    - port: 8083
       targetPort: 8080
   type: LoadBalancer
 ---

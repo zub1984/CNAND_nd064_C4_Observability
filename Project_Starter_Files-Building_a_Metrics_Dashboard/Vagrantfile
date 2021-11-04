@@ -13,11 +13,6 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
 
-  # set up root access
-  config.ssh.username = 'root'
-  config.ssh.password = 'vagrant'
-  config.ssh.insert_key = 'true'
-
   # Use any version between 15.2.31.300 and 15.2.31.570
   config.vm.box = "opensuse/Leap-15.2.x86_64"
   #config.vm.box_version = "15.2.31.354"
@@ -48,8 +43,6 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-     echo "******** Installing dependencies ********"
-     
      sudo zypper refresh
      sudo zypper --non-interactive install bzip2
      sudo zypper --non-interactive install etcd
@@ -60,8 +53,6 @@ Vagrant.configure("2") do |config|
      sudo zypper --non-interactive install apparmor-parser
      sudo zypper --non-interactive install k9s
      sudo zypper --non-interactive install bind-utils
-
-     echo -e "******** end installing ********\n"
   SHELL
 
   args = []
