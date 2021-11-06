@@ -48,28 +48,20 @@ tracer = init_tracer('frontend-app')
 
 endpoints = ('api', 'error_410', 'error_500', 'star', 'healthz')
 def generate_backend_events():
-    while True:
-        try:
+    try:
+        for _ in range(4):
             target = random.choice(endpoints)
             # back end service http://localhost:8081
             requests.get("http://localhost:8081/%s" % target, timeout=1)
-
-        except:
-            pass
+    except:
+        pass
 
 @app.route('/')
 @by_endpoint_counter
 def homepage():
     with tracer.start_span('generate_backend_events') as span:
-        threading.Thread(target=generate_backend_events).start()
-        for _ in range(4):
-            thread = threading.Thread(target=generate_backend_events)
-            thread.daemon = True
-            thread.start()
-
-        while True:
-            time.sleep(1)
-
+        generate_backend_events
+        
     return render_template("main.html")
     
 
