@@ -3,6 +3,7 @@ import threading
 import requests
 import random
 import time
+import os
 from prometheus_flask_exporter import PrometheusMetrics
 import logging
 from jaeger_client import Config
@@ -69,7 +70,11 @@ def homepage():
 @by_endpoint_counter
 def healthcheck():
     app.logger.info('Status request successfull')
-    return jsonify({"result": "OK - healthy"})
+    backend_service = os.environ.get('BACKEND_ENDPOINT', default="https://localhost:5000")
+    backend_api = f'{backend_service}/api'
+    backend_response = requests.get(backend_api).text
+    res_data = "OK - healthy %s",backend_response
+    return jsonify({"result": res_data})
 
 if __name__ == "__main__":    
     app.run()
