@@ -32,7 +32,6 @@ by_endpoint_counter = metrics.counter(
 
 class InvalidHandle(Exception):
     status_code = 400
-
     def __init__(self, message, status_code=None, payload=None):
         Exception.__init__(self)
         self.message = message
@@ -44,11 +43,6 @@ class InvalidHandle(Exception):
         error_message = dict(self.payload or ())
         error_message['message'] = self.message
         return error_message
-
-@app.route('/error')
-@by_endpoint_counter
-def oops():
-    return ':(', 500
 
 def init_tracer(service):
     logging.getLogger('').handlers = []
@@ -76,11 +70,16 @@ def handle_invalid_usage(error):
     response.status_code = error.status_code
     return response
 
-@app.route('/foo')
+@app.route('/error_410')
 @by_endpoint_counter
-def get_error():
-    raise InvalidHandle('error occur', status_code=410)
+def get_error_410():
+    raise InvalidHandle('error_410', status_code=410)
 
+@app.route('/error_500')
+@by_endpoint_counter
+def get_error_500():
+    raise InvalidHandle('error_500', status_code=500)
+    
 @app.route('/')
 @by_endpoint_counter
 def homepage(): 
@@ -91,10 +90,9 @@ def homepage():
 @by_endpoint_counter
 def my_api():
     with tracer.start_span('api'):
-        answer = "something"
-    return jsonify(repsonse=answer)
+        api_info = "To get API info"
+    return jsonify(repsonse=api_info)
 
-# This will return 405 error
 @app.route('/star', methods=['POST'])
 @by_endpoint_counter
 def add_star():

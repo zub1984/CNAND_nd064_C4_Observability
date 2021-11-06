@@ -21,9 +21,20 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 22, host: 2000 # Master Node SSH
   config.vm.network "forwarded_port", guest: 6443, host: 6443 # Kubectl API Access
   config.vm.network "forwarded_port", guest: 8080, host: 8080 # API Access
+  config.vm.network "forwarded_port", guest: 9090, host: 9090 # Prometheus metrics
+  config.vm.network "forwarded_port", guest: 3000, host: 3000 # Prometheus server
   config.vm.network "forwarded_port", guest: 16686, host: 16686 # Jaeger HTTP Access
   config.vm.network "forwarded_port", guest: 16687, host: 16687 # Jaeger CR Access
   config.vm.network "forwarded_port", guest: 32368 , host: 32368
+  config.vm.network "forwarded_port", guest: 8082 , host: 8082 # frontend-service
+  config.vm.network "forwarded_port", guest: 8081 , host: 8081 # backend-service
+  config.vm.network "forwarded_port", guest: 8083 , host: 8083 # trial-service
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 3030, host: 3030
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8888, host: 8888
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"

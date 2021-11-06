@@ -25,7 +25,6 @@ by_endpoint_counter = metrics.counter(
     'by_endpoint_counter', 'Request count by request endpoint',
     labels={'endpoint': lambda: request.endpoint}
 )
-endpoints = ('error', 'foo', 'healthz')
 
 def init_tracer(service):
     logging.getLogger('').handlers = []
@@ -47,11 +46,13 @@ def init_tracer(service):
 
 tracer = init_tracer('frontend-app')
 
-def random_endpoint():
+endpoints = ('api', 'error_410', 'error_500', 'star', 'healthz')
+def generate_backend_events():
     while True:
         try:
             target = random.choice(endpoints)
-            requests.get("http://app:8081/%s" % target, timeout=1)
+            # back end service http://localhost:8081
+            requests.get("http://localhost:8081/%s" % target, timeout=1)
 
         except:
             pass
@@ -59,18 +60,18 @@ def random_endpoint():
 @app.route('/')
 @by_endpoint_counter
 def homepage():
-    return render_template("main.html")
-    with tracer.start_span('random_endpoint') as span:
-        threading.Thread(target=random_endpoint).start()
+    with tracer.start_span('generate_backend_events') as span:
+        threading.Thread(target=generate_backend_events).start()
         for _ in range(4):
-            thread = threading.Thread(target=random_endpoint)
+            thread = threading.Thread(target=generate_backend_events)
             thread.daemon = True
             thread.start()
 
         while True:
             time.sleep(1)
-    
 
+    return render_template("main.html")
+    
 
 @app.route('/healthz')
 @by_endpoint_counter
