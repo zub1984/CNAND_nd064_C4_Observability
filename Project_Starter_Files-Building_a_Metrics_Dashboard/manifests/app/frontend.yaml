@@ -6,7 +6,7 @@ metadata:
     "sidecar.jaegertracing.io/inject": "true"
     prometheus.io/scrape: 'true'
     prometheus.io/path: '/metrics'
-    prometheus.io/port: frontendport
+    prometheus.io/port: frontend
 spec:
   replicas: 1
   selector:

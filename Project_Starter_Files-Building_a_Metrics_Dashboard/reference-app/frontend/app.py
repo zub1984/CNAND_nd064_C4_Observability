@@ -48,12 +48,14 @@ def init_tracer(service):
 tracer = init_tracer('frontend-app')
 
 endpoints = ('api', 'error_410', 'error_500', 'star', 'healthz')
+
 def generate_backend_events():
     try:
-        for _ in range(4):
-            target = random.choice(endpoints)
-            # back end service http://localhost:8081
-            requests.get("http://localhost:8081/%s" % target, timeout=1)
+        target = random.choice(endpoints)
+        backend_service = os.environ.get('BACKEND_ENDPOINT', default="https://localhost:8081")
+        backend_api = f'{backend_service}/'
+        backend_response = requests.get("backend_api%s" % target, timeout=1)
+        return "OK"
     except:
         pass
 
@@ -61,20 +63,21 @@ def generate_backend_events():
 @by_endpoint_counter
 def homepage():
     with tracer.start_span('generate_backend_events') as span:
-        generate_backend_events
-        
+        for _ in range(2):
+            thread = threading.Thread(target=generate_backend_events)
+            thread.daemon = True
+            thread.start()
+        while True:
+            time.sleep(1)
+
     return render_template("main.html")
-    
+  
 
 @app.route('/healthz')
 @by_endpoint_counter
 def healthcheck():
     app.logger.info('Status request successfull')
-    backend_service = os.environ.get('BACKEND_ENDPOINT', default="https://localhost:5000")
-    backend_api = f'{backend_service}/api'
-    backend_response = requests.get(backend_api).text
-    res_data = "OK - healthy %s",backend_response
-    return jsonify({"result": res_data})
+    return jsonify({"result": "OK - healthy"})
 
 if __name__ == "__main__":    
-    app.run()
+    app.run(threaded=True)
