@@ -1,8 +1,16 @@
 [//]: # (Image References)
 
 [image1]: ./answer-img/01-monitoring_installation.PNG
+[kubectl_get_all]: ./answer-img/kubectl_get_all.PNG
+[kubectl_get_pods_svc_monitoring]: ./answer-img/kubectl_get_pods_svc_monitoring.PNG
+[kubectl_get_pods_svc_observability]: ./answer-img/kubectl_get_pods_svc_observability.PNG
+
 [image2]: ./answer-img/02-Grafana_login.PNG
 [image3]: ./answer-img/03-Basic_dashboard.PNG
+[image4]: ./answer-img/03b-Basic_dashboard.PNG
+
+[tracing_flask_backend_app]: ./answer-img/tracing_flask_backend_app.PNG
+[tracing_flask_frontend_app]: ./answer-img/tracing_flask_frontend_app.PNG
 
 **Note:** For the screenshots, you can store all of your answer images in the `answer-img` directory.
 
@@ -11,6 +19,10 @@
 * run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
 ![][image1] 
 
+![][kubectl_get_all]
+![][kubectl_get_pods_svc_monitoring]
+![][kubectl_get_pods_svc_observability]
+
 ## Setup the Jaeger and Prometheus source
 * Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
 ![][image2] 
@@ -18,6 +30,8 @@
 ## Create a Basic Dashboard
 * Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
 ![][image3]
+
+![][image4]
 
 ## Describe SLO/SLI
 * Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
@@ -50,6 +64,9 @@ Example : Suppose you are monitoring the performance of services at a fast food 
 
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
+
+![][tracing_flask_backend_app]
+![][tracing_flask_frontend_app]
 
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
