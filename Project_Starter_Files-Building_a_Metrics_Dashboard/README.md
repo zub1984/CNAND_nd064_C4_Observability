@@ -1,16 +1,8 @@
 [//]: # (Image References)
 
 [image1]: ./answer-img/01-monitoring_installation.PNG
-[kubectl_get_all]: ./answer-img/kubectl_get_all.PNG
-[kubectl_get_pods_svc_monitoring]: ./answer-img/kubectl_get_pods_svc_monitoring.PNG
-[kubectl_get_pods_svc_observability]: ./answer-img/kubectl_get_pods_svc_observability.PNG
-
 [image2]: ./answer-img/02-Grafana_login.PNG
 [image3]: ./answer-img/03-Basic_dashboard.PNG
-[image4]: ./answer-img/03b-Basic_dashboard.PNG
-
-[tracing_flask_backend_app]: ./answer-img/tracing_flask_backend_app.PNG
-[tracing_flask_frontend_app]: ./answer-img/tracing_flask_frontend_app.PNG
 
 **Note:** For the screenshots, you can store all of your answer images in the `answer-img` directory.
 
@@ -19,10 +11,6 @@
 * run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
 ![][image1] 
 
-![][kubectl_get_all]
-![][kubectl_get_pods_svc_monitoring]
-![][kubectl_get_pods_svc_observability]
-
 ## Setup the Jaeger and Prometheus source
 * Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
 ![][image2] 
@@ -30,8 +18,6 @@
 ## Create a Basic Dashboard
 * Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
 ![][image3]
-
-![][image4]
 
 ## Describe SLO/SLI
 * Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
@@ -65,8 +51,8 @@ Example : Suppose you are monitoring the performance of services at a fast food 
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
 
-![][tracing_flask_backend_app]
-![][tracing_flask_frontend_app]
+Here is the python file for trace code.
+
 
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
@@ -76,28 +62,45 @@ Example : Suppose you are monitoring the performance of services at a fast food 
 
 TROUBLE TICKET
 
-Name:
+Name: Error on "./reference-app/backend/app.py"
 
-Date:
+Date: 04 Nov 2021, 09:29:23
 
-Subject:
+Subject: "/star" URL end point not working
 
-Affected Area:
+Affected Area: "./reference-app/backend/app.py" line no 98
 
-Severity:
+Severity: Critical
 
-Description:
-
+Description: When user access backend api with url end point "/star" with post request, it produce error and return 500 status code , possible because database setting is not properly configured.
 
 ## Creating SLIs and SLOs
 * We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name three SLIs that you would use to measure the success of this SLO.
 
-- [Latency]: % of late response (Response time > 5ms)/hours
-- [Failure rate]: Number of failure code (40X and 50X)/day
-- [Uptime]: Uptime nedd to be approximate 99 percent within a month and response time should be around 500 milliseconds.
+- [SLOs] application has 99.95% uptime per month, to meet this SLOs we need to design SLI 
+
+Suggest to measure "Four Golden Signals", for instance:
+
+- Percentage of CPU in last 1 month (for utilization).
+- Memory consumption in last 1 month (for utilization).
+- Percentage of Infrastructure uptime in the last 1 month (to check error).
+- Average number of requests per minute in the last 24 hours (to check traffic).
+- % of request/response time less than 250 milliseconds (for latency).
+
+Prepare errors budget as all the applications may not always work perfectly.
+- Applications to produce 5xx status code less than 1% in next month.
+- Service downtime to be 0.001% in next month.
 
 ## Building KPIs for our plan
 *TODO*: Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
+
+1. CPU consumption <= 85%
+2. Memory consumption <= 85%
+3. % infrastructure uptime >= 99.5%
+4. % request/response time (less than 500 ms) >= 99.5%
+5. 500 errors in last 1 hour = 0
+6. Average number of requests/minute <= 50
+
 
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
