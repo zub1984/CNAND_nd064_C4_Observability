@@ -17,6 +17,7 @@ spec:
         image: ghcr.io/thejaysmith/trial:v1
         ports:
         - containerPort: 8080
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
@@ -43,7 +44,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      release: prometheus
+      app: trial
   endpoints:
   - port: trial
     path: /metrics
