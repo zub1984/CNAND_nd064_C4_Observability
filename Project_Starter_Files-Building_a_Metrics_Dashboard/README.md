@@ -145,7 +145,7 @@ Prepare errors budget as all the applications may not always work perfectly.
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
 
-![][[final_dashboard]]
+![][final_dashboard]
 
 * CPU Usages: The CPU usage of the Flask backend app as measured over 30 seconds.
 * Memory usages: The memory usage of the Flask backend app.
