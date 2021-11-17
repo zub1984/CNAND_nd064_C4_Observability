@@ -1,23 +1,43 @@
 [//]: # (Image References)
 
-[image1]: ./answer-img/01-monitoring_installation.PNG
-[image2]: ./answer-img/02-Grafana_login.PNG
-[image3]: ./answer-img/03-Basic_dashboard.PNG
+[monitoring_installation]: ./answer-img/01-monitoring_installation.PNG
+[kubectl_get_all]: ./answer-img/kubectl_get_all.PNG
+[pods_svc_monitoring]: ./answer-img/kubectl_get_pods_svc_monitoring.PNG
+[pods_svc_observability]: ./answer-img/kubectl_get_pods_svc_observability.PNG
+
+[login]: ./answer-img/02-Grafana_login.PNG
+[1_dashboard]: ./answer-img/03-Basic_dashboard.PNG
+[2_dashboard]: ./answer-img/03b-Basic_dashboard.PNG
+
+[40X_50X_SLI]: ./answer-img/40X_50X_SLI.PNG
+
+[flask_backend]: ./answer-img/tracing_flask_backend_app.PNG
+[Jaeger_Dashboards]: ./answer-img/Jaeger_Dashboards.PNG
+
+[final_dashboard]: ./answer-img/final_dashboard.PNG
 
 **Note:** For the screenshots, you can store all of your answer images in the `answer-img` directory.
 
 ## Verify the monitoring installation
 
 * run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
-![][image1] 
+![][monitoring_installation]
+
+### Namespace: Default
+![][kubectl_get_all] 
+### Namespace: Monitoring
+![][pods_svc_monitoring]
+### Namespace: Observability
+![][pods_svc_observability] 
 
 ## Setup the Jaeger and Prometheus source
 * Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
-![][image2] 
+![][login] 
 
 ## Create a Basic Dashboard
 * Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
-![][image3]
+![][1_dashboard]
+![][2_dashboard]
 
 ## Describe SLO/SLI
 * Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
@@ -48,31 +68,50 @@ Example : Suppose you are monitoring the performance of services at a fast food 
 ## Create a Dashboard to measure our SLIs
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
 
+![][40X_50X_SLI]
+
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
 
-Here is the python file for trace code.
+["./reference-app/backend/app.py"] is the python file for trace code.
 
+* prerequisite
+- kubectl port-forward service/backend-service 8081:8081
+- kubectl port-forward -n observability service/my-traces-query --address 0.0.0.0 16686:16686
+
+* Generate traffic request for api endpoint
+ 
+for i in 1 2 3; do curl localhost:8081; done
+for i in 1 2 3 4 5 6 7 8 9; do curl localhost:8081/api; done
+
+for i in 1 2 3 4 5 6 7 8 9; do curl localhost:8081/star; done
+for i in 1 2 3; do curl localhost:8081/error_410; done
+for i in 1 2 3; do curl localhost:8081/error_500; done
+for i in 1 2 3; do curl localhost:8081/healthz; done
+
+![][flask_backend]
 
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
+
+![][Jaeger_Dashboards]
 
 ## Report Error
 *TODO:* Using the template below, write a trouble ticket for the developers, to explain the errors that you are seeing (400, 500, latency) and to let them know the file that is causing the issue.
 
 TROUBLE TICKET
 
-Name: Error on "./reference-app/backend/app.py"
+Name: Error on "./reference-app/backend/app.py" 
 
 Date: 04 Nov 2021, 09:29:23
 
-Subject: "/star" URL end point not working
+Subject: "/star" request end point failure
 
 Affected Area: "./reference-app/backend/app.py" line no 98
 
 Severity: Critical
 
-Description: When user access backend api with url end point "/star" with post request, it produce error and return 500 status code , possible because database setting is not properly configured.
+Description: When user access backend api with url end point "/star" with post request, it produce error 405 Method Not Allowed , possible because MongoDB database setting is not properly configured.
 
 ## Creating SLIs and SLOs
 * We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name three SLIs that you would use to measure the success of this SLO.
@@ -96,11 +135,24 @@ Prepare errors budget as all the applications may not always work perfectly.
 
 1. CPU consumption <= 85%
 2. Memory consumption <= 85%
-3. % infrastructure uptime >= 99.5%
-4. % request/response time (less than 500 ms) >= 99.5%
-5. 500 errors in last 1 hour = 0
-6. Average number of requests/minute <= 50
+3. application uptime >= 99.5%
+4. % of request under 250ms >= 99%
+5. error per second ((non HTTP 200) in last 3 hour
+6. successful request per second in last 3 hour
+7. Average response response time measured over 30 seconds intervals for successful requests in last 3 hour.
 
 
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
+
+![][[final_dashboard]]
+
+* CPU Usages: The CPU usage of the Flask backend app as measured over 30 seconds.
+* Memory usages: The memory usage of the Flask backend app.
+* Uptime: Uptime of each pod.
+* 40X HTTP: 40X HTTP error code.
+* 50X HTTP: 50X HTTP error code.
+* Errors_per_second: Number of failed (non HTTP 200) responses per second.
+* successful_requests_per_sec : Number of successful Flask requests per second.
+* average_response_time [30s]: The average response time measured over 30 seconds intervals for successful requests
+* Requests_under_250ms: The percentage of successful requests finished within 1/4 second.
