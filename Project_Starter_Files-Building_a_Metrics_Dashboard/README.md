@@ -131,26 +131,30 @@ Prepare errors budget as all the applications may not always work perfectly.
 - Service downtime to be 0.01% in next month.
 
 ## Building KPIs for our plan
-*Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
+Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
 
 To achieve our SLO, would collect KPIs everyday
 
-- KPI for saturation : How "full" your service is. A measure of system fraction, emphasizing the resources that are most constrained (e.g., in a memory-constrained system, show memory; in an I/O-constrained system, show I/O) as many systems degrade in performance before they achieve 100% utilization, so having a utilization target is essential.
+### KPI for saturation
+How "full" your service is. A measure of system fraction, emphasizing the resources that are most constrained (e.g., in a memory-constrained system, show memory; in an I/O-constrained system, show I/O) as many systems degrade in performance before they achieve 100% utilization, so having a utilization target is essential.
 
 * CPU consumption should be less than 85%
 * Memory consumption should be less than 85%
 
-- KPI for Uptime: Uptime need to be approximate 99 percent within a month and response time should be around 500 milliseconds.
+### KPI for Uptime
+Uptime need to be approximate 99 percent within a month and response time should be around 500 milliseconds.
 
 * application uptime should be greater than 99.5%
 * % of request under 250ms should be more than 99%
 
-- KPI for Errors: The rate of requests that fail, either explicitly (e.g., HTTP 500s), implicitly (for example, an HTTP 200 success response, but coupled with wrong message) to be measured.
+### KPI for Errors
+The rate of requests that fail, either explicitly (e.g., HTTP 500s), implicitly (for example, an HTTP 200 success response, but coupled with wrong message) to be measured.
 
 * errors per second (non HTTP 200) in last 3 hour
 * successful request (HTTP 200) per second in last 3 hour
 
-- KPI for Traffic: A measure of how much demand is being placed on your system, measured in a high-level system-specific metric.
+### KPI for Traffic
+A measure of how much demand is being placed on your system, measured in a high-level system-specific metric.
 * Average response response time measured over 30 seconds intervals for successful requests in last 3 hour.
 
 
