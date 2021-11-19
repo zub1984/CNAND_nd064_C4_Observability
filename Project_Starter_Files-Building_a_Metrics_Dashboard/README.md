@@ -142,7 +142,7 @@ How "full" your service is. A measure of system fraction, emphasizing the resour
 * Memory consumption should be less than 85%
 
 ### KPI for Uptime
-Uptime need to be approximate 99 percent within a month and response time should be around 500 milliseconds.
+Uptime need to be approximate 99 percent within a month and response time should be around 250 milliseconds.
 
 * application uptime should be greater than 99.5%
 * % of request under 250ms should be more than 99%
