@@ -66,12 +66,12 @@ Example : Suppose you are monitoring the performance of services at a fast food 
 * % of late orders (fulfillment time > 10 minutes)/hour.
 
 ## Create a Dashboard to measure our SLIs
-*TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
+* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
 
 ![][40X_50X_SLI]
 
 ## Tracing our Flask App
-*TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
+* We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
 
 ["./reference-app/backend/app.py"] is the python file for trace code.
 
@@ -92,12 +92,12 @@ for i in 1 2 3; do curl localhost:8081/healthz; done
 ![][flask_backend]
 
 ## Jaeger in Dashboards
-*TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
+* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
 
 ![][Jaeger_Dashboards]
 
 ## Report Error
-*TODO:* Using the template below, write a trouble ticket for the developers, to explain the errors that you are seeing (400, 500, latency) and to let them know the file that is causing the issue.
+* Using the template below, write a trouble ticket for the developers, to explain the errors that you are seeing (400, 500, latency) and to let them know the file that is causing the issue.
 
 TROUBLE TICKET
 
@@ -118,32 +118,44 @@ Description: When user access backend api with url end point "/star" with post r
 
 - [SLOs] application has 99.95% uptime per month, to meet this SLOs we need to design SLI 
 
-Suggest to measure "Four Golden Signals", for instance:
+Suggest to measure
 
-- Percentage of CPU in last 1 month (for utilization).
-- Memory consumption in last 1 month (for utilization).
+- Percentage of CPU in last 1 month (for saturation).
+- Memory consumption in last 1 month (for saturation).
 - Percentage of Infrastructure uptime in the last 1 month (to check error).
 - Average number of requests per minute in the last 24 hours (to check traffic).
 - % of request/response time less than 250 milliseconds (for latency).
 
 Prepare errors budget as all the applications may not always work perfectly.
 - Applications to produce 5xx status code less than 1% in next month.
-- Service downtime to be 0.001% in next month.
+- Service downtime to be 0.01% in next month.
 
 ## Building KPIs for our plan
-*TODO*: Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
+*Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
 
-1. CPU consumption <= 85%
-2. Memory consumption <= 85%
-3. application uptime >= 99.5%
-4. % of request under 250ms >= 99%
-5. error per second ((non HTTP 200) in last 3 hour
-6. successful request per second in last 3 hour
-7. Average response response time measured over 30 seconds intervals for successful requests in last 3 hour.
+To achieve our SLO, would collect KPIs everyday
+
+- KPI for saturation : How "full" your service is. A measure of system fraction, emphasizing the resources that are most constrained (e.g., in a memory-constrained system, show memory; in an I/O-constrained system, show I/O) as many systems degrade in performance before they achieve 100% utilization, so having a utilization target is essential.
+
+* CPU consumption should be less than 85%
+* Memory consumption should be less than 85%
+
+- KPI for Uptime: Uptime need to be approximate 99 percent within a month and response time should be around 500 milliseconds.
+
+* application uptime should be greater than 99.5%
+* % of request under 250ms should be more than 99%
+
+- KPI for Errors: The rate of requests that fail, either explicitly (e.g., HTTP 500s), implicitly (for example, an HTTP 200 success response, but coupled with wrong message) to be measured.
+
+* errors per second (non HTTP 200) in last 3 hour
+* successful request (HTTP 200) per second in last 3 hour
+
+- KPI for Traffic: A measure of how much demand is being placed on your system, measured in a high-level system-specific metric.
+* Average response response time measured over 30 seconds intervals for successful requests in last 3 hour.
 
 
 ## Final Dashboard
-*TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
+* Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
 
 ![][final_dashboard]
 
